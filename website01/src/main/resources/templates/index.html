@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html" ; charset="UTF-8">
+    <title>推推君</title>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/main_js.js}"></script>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/maintheme.css}" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="page-header">
+            <div class="pull-right"sec:authorize="isAnonymous()">
+                <a th:href="@{/userLogin}" rel="noopener noreferrer" class="login-submit" data-toggle="modal" data-target="#myModal">登錄</a>
+                <a th:href="@{/toSignup}"  rel="noopener noreferrer">註冊</a>
+            </div>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" sec:authorize="isAnonymous()">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                            </button>
+                            <h4 class="login-title" id="myModalLabel">
+                                Login
+                            </h4>
+                        </div>
+                        <form role="form" id="loginForm" th:method="post" th:action="@{/userLogin}">
+                            <div class="login-form">
+                                <input type="text" name="username" placeholder="account" class="login-input" required="required" autofocus="">
+                                <input type="password" name="password" placeholder="password" class="login-input" required="required">
+                                <!--<a onclick="checkLogin()" class="btn btn-lg btn-success btn-block">登錄</a>-->
+                                <input type="submit" name="login" value="Login" class="login-submit">
+                            </div>
+                        </form>
+                        <div class="tip">
+                            <a th:href="@{/toSignup}">Sign up</a>
+                        </div>
+                        <div class="tip">
+                            <a href="#" class="tip-forget">忘記密碼</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pull-right" sec:authorize="isAuthenticated()">
+                <a id="loginedbutton" th:href="@{/}" rel="noopener noreferrer"><span sec:authentication="name"></span></a>
+                <form th:action="@{/mylogout}" method="post">
+                    <input id="logoutbutton" th:type="submit" th:value="登出" placeholder="登出" />
+                </form>
+                <div style="clear:both;"></div>
+            </div>
+
+            <h1 id=title>推推君
+                <small id=subtitle>推薦小工具</small>
+            </h1>
+        </div>
+        <nav class="navbar navbar-inverse">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"></a>
+            </div>
+            <div id="navbar-menu" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a th:href="@{/}">回首頁</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            美食推薦
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/toRestaurant}">餐廳</a></li>
+                            <li><a th:href="@{/toRestaurant}">單點菜色</a></li>
+                            <li><a href="#">小吃</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            景點推薦
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">自然、風景</a></li>
+                            <li><a href="#">遊樂場所、購物中心</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="content" class="row-fluid">
+                <div class="col-md-9">
+                    <h2>美食、旅遊、不知道要吃或要玩，找我就對了</h2>
+                    <div data-spy="scroll" data-target="#navbar-example" data-offset="0" style="height: 300px;;overflow:auto; position: relative;">
+                        <h3>功能介紹</h3>
+                        <dl>
+                            <dt id="dish-restaurant">
+                                <h4>餐廳</h4>
+                            </dt>
+                            <dd>協助你找出符合你需求的餐廳。</dd>
+                            <dt id="dish-dish">
+                                <h4>單點菜色</h4>
+                            </dt>
+                            <dd>協助你找出符合你想吃的單點菜色。</dd>
+                            <dt id="dish-side dish">
+                                <h4>小吃</h4>
+                            </dt>
+                            <dd>協助你找出符合你想吃的特色小吃。</dd>
+                            <dt id="view-natural">
+                                <h4>自然、風景</h4>
+                            </dt>
+                            <dd>推薦您適合的自然景點。</dd>
+                            <dt id="view-shopping">
+                                <h4>遊樂場所、購物中心</h4>
+                            </dt>
+                            <dd>推薦您適合的休閒娛樂場所。</dd>
+                        </dl>
+                        <div style="height: 700px;"></div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </nav>
+    </div>
+
+
+
+
+</body>
+
+</html>

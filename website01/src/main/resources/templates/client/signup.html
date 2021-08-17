@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+    <title>推推君</title>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/loginjs.js}"></script>
+    <link th:href="@{/css/logintheme.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="signup-wrap">
+            <div class="signup-title">
+                會員註冊
+            </div>
+            <form th:action="@{/user/register}" method="post">
+                <div class="signup-form">
+                    <label class="signup-lable">帳號:</label>
+                    <input type="text" name="username" placeholder="請輸入8位數以上帳號" class="signup-input" required="required">
+
+                    <label class="signup-lable">姓名:</label>
+                    <input type="text" name="name" placeholder="請輸入全名" class="signup-input" required="required">
+
+                    <label class="signup-lable">密碼:</label>
+                    <input type="password" name="password" placeholder="請輸入8位數以上密碼" class="signup-input" required="required">
+
+                    <label class="signup-lable">確認密碼:</label>
+                    <input type="password" name="confirm-password" placeholder="請重複輸入相同密碼" class="signup-input" required="required" id="c_pwd" onblur="checkpwd()">
+
+                    <label class="signup-lable">信箱:</label>
+                    <input type="email" name="email" placeholder="請輸入常用信箱" class="signup-input" required="required">
+
+                    <label class="signup-lable">生日:</label>
+                    <input type="date" name="birthday" class="signup-input" required="required">
+
+                    <label class="signup-lable">驗證碼:
+                    <img id="num" th:src="@{/user/code}" />
+                    <a id="c_change"href="javascript:;" onclick="document.getElementById('num').src = '/user/code?'+(new Date()).getTime()">換一張</a>
+                    </label>
+                    <input type="text" class="signup-input" placeholder="輸入答案" name="code" id="c_ans" />
+
+                    <input id="rbtn" type="submit" name="sign up" value="註冊" class="signup-submit" onclick="signup()" />
+                    <input id="lbtn" type="button" class="signup-submit" value="返回上一頁" onclick="history.back()"/>
+                    <div style="clear:both;"></div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
